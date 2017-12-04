@@ -22,7 +22,7 @@ function varargout = ImageAssessment(varargin)
 
 % Edit the above text to modify the response to help ImageAssessment
 
-% Last Modified by GUIDE v2.5 04-Dec-2017 23:26:34
+% Last Modified by GUIDE v2.5 04-Dec-2017 23:54:00
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -82,7 +82,7 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global assessimg
-[assessfile, assesspath] = uigetfile({'*.jpg;*.tif;*.png;*.gif','All Image Files'});
+[assessfile, assesspath] = uigetfile({'*.jpg;*.tif;*.png;*.gif;*.bmp','All Image Files'});
 if (assessfile==0 & assesspath==0)
     msgbox('您没有选择文件，请重新选择!','打开文件出错','error');
 else
@@ -100,7 +100,7 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global originimg
-[originfile, originpath] = uigetfile({'*.jpg;*.tif;*.png;*.gif','All Image Files'});
+[originfile, originpath] = uigetfile({'*.jpg;*.tif;*.png;*.gif;*.bmp','All Image Files'});
 if (originfile==0 & originpath==0)
     msgbox('您没有选择文件，请重新选择!','打开文件出错','error');
 else
@@ -139,15 +139,15 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-%If the input image is rgb, convert it to gray image
-global assessimg
-noOfDim = ndims(assessimg);
-if(noOfDim == 3)
-    assessimg = rgb2gray(assessimg);
-end
-global originimg
 % if has origin image do both referenced & non referenced assessment
-if originimg == 1
+global originimg
+global assessimg
+if isempty(originimg) == 0
+    %If the input image is rgb, convert it to gray image
+    noOfDim = ndims(assessimg);
+    if(noOfDim == 3)
+        assessimg = rgb2gray(assessimg);
+    end
     noOfDim = ndims(originimg);
     if(noOfDim == 3)
         originimg = rgb2gray(originimg);
@@ -163,4 +163,20 @@ if originimg == 1
         return;
     end
     
+    tdata = {}; % table data for all assessment results
+    % do calculation
+    % Compression ratio
+    % Relative data redundancy  1-1/Cr
+    % Mean Square Error(MSE)
+    MSE = MeanSquareError(originimg, assessimg);
+    tdata{1,1} = 'Mean Square Error';
+    tdata{1,2} = MSE;
+    set(handles.uitable1,'Data',tdata);
+    set(handles.uitable1,'Visible','on');
+    % Root Mean Square Error (RMSE)
+    % Signal to Noise Ratio (SNR)
+    % Peak Signal to Noise Ratio (PSNR)
+    % Mean-Square Signal to Noise Ratio (MS-SNR)
+    % Entropy
 end
+% do non referenced assessment
