@@ -166,23 +166,50 @@ if isempty(originimg) == 0
     tdata = {}; % table data for all assessment results
     % do calculation
     % Compression ratio
+    
     % Relative data redundancy  1-1/Cr
+    
     % Mean Square Error(MSE)
     MSE = MeanSquareError(g_originimg, g_assessimg);
-    tdata{1,1} = 'Mean Square Error';
-    tdata{1,2} = MSE;
+    tdata{3,1} = 'Mean Square Error';
+    tdata{3,2} = MSE;
     % Root Mean Square Error (RMSE)
     RMSE = MSE^0.5;
-    tdata{2,1} = 'Root Mean Square Error';
-    tdata{2,2} = RMSE;
+    tdata{4,1} = 'Root Mean Square Error';
+    tdata{4,2} = RMSE;
     % Signal to Noise Ratio (SNR)
     
     % Peak Signal to Noise Ratio (PSNR)
     PSNR = PeakSignaltoNoiseRatio(g_originimg, g_assessimg);
-    tdata{4,1} = 'Peak Signal to Noise Ratio';
-    tdata{4,2} = PSNR;
+    tdata{6,1} = 'Peak Signal to Noise Ratio';
+    tdata{6,2} = PSNR;
     % Mean-Square Signal to Noise Ratio (MS-SNR)
+    
     % Entropy
+    
+    % Normalized Cross-Correlation
+    NCC = NormalizedCrossCorrelation(g_originimg, g_assessimg);
+    tdata{9,1} = 'Normalized Cross-Correlation';
+    tdata{9,2} = NCC;
+    % Average Difference
+    AD = AverageDifference(g_originimg, g_assessimg);
+    tdata{10,1} = 'Average Difference';
+    tdata{10,2} = AD;
+    % Structural Content
+    SC = StructuralContent(g_originimg, g_assessimg);
+    tdata{11,1} = 'Structural Content';
+    tdata{11,2} = SC;
+    % Maximum Difference
+    MD = MaximumDifference(g_originimg, g_assessimg);
+    tdata{12,1} = 'Maximum Difference';
+    tdata{12,2} = MD;
+    % Normalized Absolute Error
+    NAE = NormalizedAbsoluteError(g_originimg, g_assessimg);
+    tdata{13,1} = 'Normalized Absolute Error';
+    tdata{13,2} = NAE;
+    %Laplacian Mean Square Error
+    
+    % Show result
     set(handles.uitable1,'Data',tdata);
     set(handles.uitable1,'Visible','on');
 end
