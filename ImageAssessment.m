@@ -208,8 +208,17 @@ if isempty(originimg) == 0
     tdata{13,1} = 'Normalized Absolute Error';
     tdata{13,2} = NAE;
     %Laplacian Mean Square Error
+    LMSE = LaplacianMeanSquareError(g_originimg, g_assessimg);
+    tdata{14,1} = 'Laplacian Mean Square Error';
+    tdata{14,2} = LMSE;
+    % Structural Similarity Index (SSIM)
     
     % Show result
+    set(handles.uitable1,'Data',tdata);
+    set(handles.uitable1,'Visible','on');
+else
+    % show blank table
+    tdata{1,1} = 'No original image input';
     set(handles.uitable1,'Data',tdata);
     set(handles.uitable1,'Visible','on');
 end
