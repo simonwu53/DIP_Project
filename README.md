@@ -1,6 +1,8 @@
 # DIP_Project
 Digital Image Processing Course Project
 
+=======
+
 ### Kadir
 * Signal to Noise Ratio (SNR)
 * Mean-Square Signal to Noise Ratio (MS-SNR)
@@ -26,5 +28,4 @@ Digital Image Processing Course Project
 * Normalized Absolute Error
 
 [![Reference](testimg/Reference.PNG)](testimg/Reference.PNG)
-=======
->>>>>>> 117dcce5d99bf49f69ba59fb87d73544a7fb6e3d
+
