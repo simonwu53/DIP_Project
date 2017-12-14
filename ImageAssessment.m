@@ -146,11 +146,11 @@ if isempty(originimg) == 0
     %If the input image is rgb, convert it to gray image
     noOfDim = ndims(assessimg);
     if(noOfDim == 3)
-        assessimg = rgb2gray(assessimg);
+        g_assessimg = rgb2gray(assessimg);
     end
     noOfDim = ndims(originimg);
     if(noOfDim == 3)
-        originimg = rgb2gray(originimg);
+        g_originimg = rgb2gray(originimg);
     end
 
     %Size Validation
@@ -168,15 +168,19 @@ if isempty(originimg) == 0
     % Compression ratio
     % Relative data redundancy  1-1/Cr
     % Mean Square Error(MSE)
-    MSE = MeanSquareError(originimg, assessimg);
+    MSE = MeanSquareError(g_originimg, g_assessimg);
     tdata{1,1} = 'Mean Square Error';
     tdata{1,2} = MSE;
-    set(handles.uitable1,'Data',tdata);
-    set(handles.uitable1,'Visible','on');
     % Root Mean Square Error (RMSE)
+    RMSE = MSE^0.5;
+    tdata{2,1} = 'Root Mean Square Error';
+    tdata{2,2} = RMSE;
     % Signal to Noise Ratio (SNR)
+    
     % Peak Signal to Noise Ratio (PSNR)
     % Mean-Square Signal to Noise Ratio (MS-SNR)
     % Entropy
+    set(handles.uitable1,'Data',tdata);
+    set(handles.uitable1,'Visible','on');
 end
 % do non referenced assessment
