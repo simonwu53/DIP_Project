@@ -212,7 +212,9 @@ if isempty(originimg) == 0
     tdata{14,1} = 'Laplacian Mean Square Error';
     tdata{14,2} = LMSE;
     % Structural Similarity Index (SSIM)
-    
+    [ssimval, ssimmap] = ssim(g_assessimg,g_originimg);
+    tdata{15,1} = 'Structural Similarity Index';
+    tdata{15,2} = ssimval;
     % Show result
     set(handles.uitable1,'Data',tdata);
     set(handles.uitable1,'Visible','on');
