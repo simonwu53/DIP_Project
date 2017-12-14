@@ -178,6 +178,9 @@ if isempty(originimg) == 0
     % Signal to Noise Ratio (SNR)
     
     % Peak Signal to Noise Ratio (PSNR)
+    PSNR = PeakSignaltoNoiseRatio(g_originimg, g_assessimg);
+    tdata{4,1} = 'Peak Signal to Noise Ratio';
+    tdata{4,2} = PSNR;
     % Mean-Square Signal to Noise Ratio (MS-SNR)
     % Entropy
     set(handles.uitable1,'Data',tdata);
