@@ -7,9 +7,11 @@ import argparse
 parser = argparse.ArgumentParser(description='image argument')
 parser.add_argument('image', metavar='im', type=str, nargs='+',
                    help='Image input')
-args = parser.parse_args()                   
-# Create the haar cascade
+args = parser.parse_args() 
 
+
+                  
+#Create the haar cascade
 cascPath = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 
@@ -31,7 +33,7 @@ faces = faceCascade.detectMultiScale(
 for (x, y, w, h) in faces:
     
     face = cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
-    cv2.imwrite("image_fd.jpg", face)
+    cv2.imwrite("src\image_fd.jpg", face)
     if id:
         key = 1
     else:
@@ -42,7 +44,7 @@ for (x, y, w, h) in faces:
 #send back the number of faces found
 sys.stdout.write(str(len(faces)))
 
-cv2.waitKey()
+
 
 
 
