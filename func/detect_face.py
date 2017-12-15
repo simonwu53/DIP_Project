@@ -26,16 +26,10 @@ faces = faceCascade.detectMultiScale(
     #flags = cv2.cv.CV_HAAR_SCALE_IMAGE
 )
 
-#print("Found {0} faces!".format(len(faces)))
-
-
 
 # Draw a rectangle around the faces\
 for (x, y, w, h) in faces:
     
-    #cv2.imshow("face: %s"%(id),image[y:y+h,x:x+w])
-    #id=input("enter the name: ")
-    #sampleNum=sampleNum+1
     face = cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
     cv2.imwrite("image_fd.jpg", face)
     if id:
@@ -44,7 +38,6 @@ for (x, y, w, h) in faces:
         key = 0
     cv2.waitKey(key)
 
-#cv2.imshow("Faces found", image)
 
 #send back the number of faces found
 sys.stdout.write(str(len(faces)))

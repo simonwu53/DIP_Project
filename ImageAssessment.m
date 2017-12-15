@@ -249,3 +249,17 @@ function pushbutton5_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton5 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+global originfile
+global originpath
+global assessfile
+global assesspath
+
+%command = strcat({'python func/detect_face.py'},{' '},{originpath,originfile})
+%system(command)
+
+%axes(handles.axes1)
+%imshow(assessimg)
+
+%axes(handles.axes1)
+%imshow(assessimg)
+
