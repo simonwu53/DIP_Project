@@ -22,7 +22,7 @@ function varargout = ImageAssessment(varargin)
 
 % Edit the above text to modify the response to help ImageAssessment
 
-% Last Modified by GUIDE v2.5 04-Dec-2017 23:54:00
+% Last Modified by GUIDE v2.5 15-Dec-2017 14:35:27
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -225,3 +225,10 @@ else
     set(handles.uitable1,'Visible','on');
 end
 % do non referenced assessment
+
+
+% --- Executes on button press in pushbutton5.
+function pushbutton5_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)

@@ -37,9 +37,12 @@ Digital Image Processing Course Project
 * Maximum Difference
 * Laplacian Mean Square Error
 * Normalized Absolute Error
+
+[![Reference](src/Reference.PNG)](src/Reference.PNG)
+
 * Structural Similarity Index (SSIM)
     - Computation of three terms: luminance, contrast, structural
     - The overall index is a multiplicative combination of the three terms
 
-[![Reference](src/Reference.PNG)](src/Reference.PNG)
+[![SSIM](src/SSIM.png)](src/SSIM.png)
 
