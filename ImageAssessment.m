@@ -82,6 +82,8 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global assessimg
+global assessfile
+global assesspath
 [assessfile, assesspath] = uigetfile({'*.jpg;*.tif;*.png;*.gif;*.bmp','All Image Files'});
 if (assessfile==0 & assesspath==0)
     msgbox('您没有选择文件，请重新选择!','打开文件出错','error');
@@ -100,9 +102,11 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global originimg
+global originfile
+global originpath
 [originfile, originpath] = uigetfile({'*.jpg;*.tif;*.png;*.gif;*.bmp','All Image Files'});
 if (originfile==0 & originpath==0)
-    msgbox('您没有选择文件，请重新选择!','打开文件出错','error');
+    msgbox('您没有选择文件，请重新选择!','打开文件出错 COME ON MAN USE ENGLISH!!!! :D','error');
 else
     originimg=imread([originpath, originfile]);
     axes(handles.axes2)
@@ -142,6 +146,10 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % if has origin image do both referenced & non referenced assessment
 global originimg
 global assessimg
+global originfile
+global originpath
+global assessfile
+global assesspath
 if isempty(originimg) == 0
     %If the input image is rgb, convert it to gray image
     noOfDim = ndims(assessimg);
@@ -166,9 +174,14 @@ if isempty(originimg) == 0
     tdata = {}; % table data for all assessment results
     % do calculation
     % Compression ratio
-    
+    %[originfile, originpath]
+    CR = compression_ratio([originpath,originfile], [assesspath, assessfile]);
+    tdata{1,1} = 'Compression Ratio';
+    tdata{1,2} = CR;
     % Relative data redundancy  1-1/Cr
-    
+    RDR = relative_data_redundancy([originpath,originfile], [assesspath, assessfile]);
+    tdata{2,1} = 'Relative Data Redundancy';
+    tdata{2,2} = RDR;
     % Mean Square Error(MSE)
     MSE = MeanSquareError(g_originimg, g_assessimg);
     tdata{3,1} = 'Mean Square Error';
@@ -178,13 +191,17 @@ if isempty(originimg) == 0
     tdata{4,1} = 'Root Mean Square Error';
     tdata{4,2} = RMSE;
     % Signal to Noise Ratio (SNR)
-    
+    SNR = signal_to_noise_ratio(g_originimg, g_assessimg);
+    tdata{5,1} = 'Signal to noise ratio';
+    tdata{5,2} = SNR;
     % Peak Signal to Noise Ratio (PSNR)
     PSNR = PeakSignaltoNoiseRatio(g_originimg, g_assessimg);
     tdata{6,1} = 'Peak Signal to Noise Ratio';
     tdata{6,2} = PSNR;
     % Mean-Square Signal to Noise Ratio (MS-SNR)
-    
+    MS_SNR = ms_snr(g_originimg, g_assessimg);
+    tdata{7,1} = 'Mean Square Signal to Noise Ratio';
+    tdata{7,2} = MS_SNR;
     % Entropy
     
     % Normalized Cross-Correlation
