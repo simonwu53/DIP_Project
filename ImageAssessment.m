@@ -203,7 +203,9 @@ if isempty(originimg) == 0
     tdata{7,1} = 'Mean Square Signal to Noise Ratio';
     tdata{7,2} = MS_SNR;
     % Entropy
-    
+    en = entropy(g_originimg);
+    tdata{8,1} = 'Entropy';
+    tdata{8,2} = en;
     % Normalized Cross-Correlation
     NCC = NormalizedCrossCorrelation(g_originimg, g_assessimg);
     tdata{9,1} = 'Normalized Cross-Correlation';
