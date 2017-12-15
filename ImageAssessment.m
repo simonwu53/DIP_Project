@@ -255,7 +255,7 @@ global assessfile
 global assesspath
 
 %run python face detection code
-command = strcat('python func\detect_face.py',{' '},originpath,originfile)
+command = strcat('python func\detect_face.py',{' '},originpath,originfile);
 [foo number_of_faces_origin] = system(command{1});
 %display image with face detection
 axes(handles.axes2)
@@ -263,7 +263,7 @@ image_fd = imread('src/image_fd.jpg');
 imshow(image_fd)
 
 %run python face detection code
-command = strcat('python func\detect_face.py',{' '},assesspath,assessfile)
+command = strcat('python func\detect_face.py',{' '},assesspath,assessfile);
 [foo number_of_faces_assess] = system(command{1});
 %display image with face detection
 axes(handles.axes1)
