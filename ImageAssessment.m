@@ -234,6 +234,26 @@ if isempty(originimg) == 0
     [ssimval, ssimmap] = ssim(g_assessimg,g_originimg);
     tdata{15,1} = 'Structural Similarity Index';
     tdata{15,2} = ssimval;
+    % Luminance
+    lum = luminance(g_assessimg);
+    tdata{16,1} = 'Luminance';
+    tdata{16,2} = lum;
+    % Variance
+    var = variance(g_assessimg);
+    tdata{17,1} = 'Variance';
+    tdata{17,2} = var;
+    % Sharpness Index
+    si = sharpness_index(g_assessimg,0);
+    tdata{18,1} = 'Sharpness Index';
+    tdata{18,2} = si;
+    % NIQE
+    %nq = niqe(g_assessimg);
+    %tdata{19,1} = 'NIQE';
+    %tdata{19,2} = nq;
+    % BRISQUE
+    %brq = brisque(g_assessimg);
+    %tdata{20,1} = 'BRISQUE';
+    %tdata{20,2} = brq;
     % Show result
     set(handles.uitable1,'Data',tdata);
     set(handles.uitable1,'Visible','on');
