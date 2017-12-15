@@ -4,12 +4,13 @@ Digital Image Processing Course Project
 -----
 
 ### Kadir
-* Compression ratio
-* Relative data redundancy (1-1/Cr)
-* Signal to Noise Ratio (SNR)
-* Mean-Square Signal to Noise Ratio (MS-SNR)
-* Entropy
-* and find more
+* ~~Compression ratio~~
+* ~~Relative data redundancy (1-1/Cr)~~
+* ~~Signal to Noise Ratio (SNR)~~
+* ~~Mean-Square Signal to Noise Ratio (MS-SNR)~~
+* ~~Entropy~~
+* histogram, sharpness, luminance
+* niqe, BRISQUE(add ui to display these)
 
 ### How to use
 * ImageAssessment.fig -> UI file
