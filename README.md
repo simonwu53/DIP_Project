@@ -23,7 +23,7 @@ Digital Image Processing Course Project
     - face detection
 
 ### References
-> quick review of the functions, what it processes and how to understand result. add later
+> quick review of the functions, what it processes and how to understand result. add later  
 > cite: [sharpness metric](http://www.mi.parisdescartes.fr/~moisan/papers/2011-33.pdf)
 
 * Mean Squared Error(MSE)
