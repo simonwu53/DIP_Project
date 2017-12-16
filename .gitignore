@@ -6,3 +6,5 @@ testimg/
 .DS_Store
 plan.md
 *.m~
+func/dequant.m
+func/perdecomp.m

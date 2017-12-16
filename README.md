@@ -25,12 +25,22 @@ Digital Image Processing Course Project
 ### References
 > quick review of the functions, what it processes and how to understand result. add later
 
-* MSE
+* Mean Squared Error(MSE)
+    - the difference between the estimator and what is estimated
 * RMSE
-* SNR
+    - represents the sample standard deviation of the differences between predicted values and observed values
+* Signal-to-noise ratio(SNR)
+    - compares the level of a desired signal to the level of background noise.
+    - In image processing: the ratio of the mean pixel value to the standard deviation of the pixel values over a given neighborhood
 * PSNR
+    - used to measure the quality of reconstruction of lossy compression codecs (e.g., for image compression)
+    - The signal in this case is the original data, and the noise is the error introduced by compression
+    - When comparing compression codecs, PSNR is an approximation to human perception of reconstruction quality
+    - <25 bad quality; 25-35 can see differences; >37 differences can hardly distinguish
 * MS-SNR
+    - any meaning?
 * Entropy
+    - 
 
 * Normalized Cross-Correlation
 * Average Difference
