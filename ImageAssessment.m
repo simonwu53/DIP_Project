@@ -22,7 +22,7 @@ function varargout = ImageAssessment(varargin)
 
 % Edit the above text to modify the response to help ImageAssessment
 
-% Last Modified by GUIDE v2.5 15-Dec-2017 14:35:27
+% Last Modified by GUIDE v2.5 16-Dec-2017 16:10:20
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -86,13 +86,16 @@ global assessfile
 global assesspath
 [assessfile, assesspath] = uigetfile({'*.jpg;*.tif;*.png;*.gif;*.bmp','All Image Files'});
 if (assessfile==0 & assesspath==0)
-    msgbox('您没有选择文件，请�?新选择!','打开文件出错','error');
+    msgbox('You didn''t choose any file!','Opening File Error','error');
 else
     assessimg=imread([assesspath, assessfile]);
     axes(handles.axes1)
     imshow(assessimg)
-    set(handles.pushbutton4,'Enable','on')
-
+    set(handles.text9,'Visible','on')
+    set(handles.text8,'Visible','off')
+    set(handles.axes1,'Visible','on')
+    set(handles.axes1,'XTick','')
+    set(handles.axes1,'YTick','')
 end
 
 
@@ -106,35 +109,38 @@ global originfile
 global originpath
 [originfile, originpath] = uigetfile({'*.jpg;*.tif;*.png;*.gif;*.bmp','All Image Files'});
 if (originfile==0 & originpath==0)
-    msgbox('您没有选择文件，请�?新选择!','打开文件出错 COME ON MAN USE ENGLISH!!!! :D','error');
+    %msgbox('您没有选择文件，请�?新选择!','打开文件出错 COME ON MAN USE ENGLISH!!!! :D','error');
+    msgbox('You didn''t choose any file!','Opening File Error','error');
 else
     originimg=imread([originpath, originfile]);
     axes(handles.axes2)
     imshow(originimg)
+    set(handles.text10,'Visible','on')
     set(handles.axes2,'Visible','on')
     set(handles.axes2,'XTick','')
     set(handles.axes2,'YTick','')
     set(handles.text3,'Visible','off')
+    set(handles.pushbutton4,'Enable','on')
 end
 
 
 % --- Executes on button press in 'Show Image'.
-function pushbutton3_Callback(hObject, eventdata, handles)
+% function pushbutton3_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if rem(handles.counter,2) == 1
-    % show the panel & change button text
-    set(handles.uipanel2,'Visible','on')
-    set(handles.pushbutton3,'String','Hide Image')
-    handles.counter = handles.counter + 1;
-elseif rem(handles.counter,2) == 0
-    % hid the panel & change button text
-    set(handles.uipanel2,'Visible','off')
-    set(handles.pushbutton3,'String','Show Image')
-    handles.counter = handles.counter + 1;
-end
-guidata(hObject, handles);
+% if rem(handles.counter,2) == 1
+%     % show the panel & change button text
+%     set(handles.uipanel2,'Visible','on')
+%     set(handles.pushbutton3,'String','Hide Image')
+%     handles.counter = handles.counter + 1;
+% elseif rem(handles.counter,2) == 0
+%     % hid the panel & change button text
+%     set(handles.uipanel2,'Visible','off')
+%     set(handles.pushbutton3,'String','Show Image')
+%     handles.counter = handles.counter + 1;
+% end
+% guidata(hObject, handles);
 
 
 % --- Executes on button press in 'Assess it!'.
@@ -235,35 +241,81 @@ if isempty(originimg) == 0
     tdata{15,1} = 'Structural Similarity Index';
     tdata{15,2} = ssimval;
     % Luminance
-    lum = luminance(g_assessimg);
+    lum = luminance(assessimg);
     tdata{16,1} = 'Luminance';
     tdata{16,2} = lum;
     % Variance
     var = variance(g_assessimg);
-    tdata{17,1} = 'Variance';
+    tdata{17,1} = 'Contrast';
     tdata{17,2} = var;
     % Sharpness Index
-    si = sharpness_index(g_assessimg,0);
+    si = sharpness_index(g_assessimg,3);
     tdata{18,1} = 'Sharpness Index';
     tdata{18,2} = si;
     % NIQE
-    %nq = niqe(g_assessimg);
-    %tdata{19,1} = 'NIQE';
-    %tdata{19,2} = nq;
+    nq = niqe(g_assessimg);
+    tdata{19,1} = 'NIQE';
+    tdata{19,2} = nq;
     % BRISQUE
-    %brq = brisque(g_assessimg);
-    %tdata{20,1} = 'BRISQUE';
-    %tdata{20,2} = brq;
+    brq = brisque(g_assessimg);
+    tdata{20,1} = 'BRISQUE';
+    tdata{20,2} = brq;
     % Show result
     set(handles.uitable1,'Data',tdata);
     set(handles.uitable1,'Visible','on');
 else
     % show blank table
-    tdata{1,1} = 'No original image input';
-    set(handles.uitable1,'Data',tdata);
-    set(handles.uitable1,'Visible','on');
+    msgbox('You didn''t choose reference file!','Error Occurred','error');
 end
-% do non referenced assessment
+% do comments
+% overall quality
+if nq < 3   
+    comments = 'Your picture has very high quality! ';
+elseif nq >=3 && nq <5
+    comments = 'Your picture has normal quality! ';
+elseif nq >=5 && nq <8
+    comments = 'Your picture has some defect. ';
+elseif nq >=8
+    comments = 'Your picture has bad quality. ';
+end
+% sharpness
+if si < 300
+    comments = strcat(comments, ' It''s a blur, ');
+elseif si >=300 && si < 1000
+    comments = strcat(comments, ' It''s a not very sharp, ');
+elseif si >=1000 && si < 5000
+    comments = strcat(comments, ' It''s a sharp, ');
+elseif si >=5000
+    comments = strcat(comments, ' It''s a very sharp, ');
+end
+% luminance
+if lum < 80
+    comments = strcat(comments, ' dark, ');
+elseif lum >= 80 && lum < 130
+    comments = strcat(comments, ' dim, ');
+elseif lum >= 130 && lum < 170
+    comments = strcat(comments, ' normal brightness, ');
+elseif lum >= 170
+    comments = strcat(comments, ' bright, ');
+end
+% contrast
+if var < 50
+    comments = strcat(comments, ' low contrast image. ');
+elseif var >=50 && var < 200
+    comments = strcat(comments, ' normal contrast image. ');
+elseif var >= 200
+    comments = strcat(comments, ' high contrast image. ');
+end
+% PSNR
+if PSNR < 25
+    comments = strcat(comments, ' I can see obvious differences to reference image. ');
+elseif PSNR >= 25 && PSNR < 37
+    comments = strcat(comments, ' I can see slight differences to reference image. ');
+elseif PSNR >= 37
+    comments = strcat(comments, ' I can hardly see differences to reference image. ');
+end
+set(handles.text6,'String',comments);
+set(handles.text6,'Visible','on');
 
 
 % --- Executes on button press in pushbutton5.
@@ -291,4 +343,3 @@ command = strcat('python func\detect_face.py',{' '},assesspath,assessfile);
 axes(handles.axes1)
 image_fd = imread('src/image_fd.jpg');
 imshow(image_fd)
-

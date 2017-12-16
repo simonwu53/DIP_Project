@@ -2,7 +2,10 @@
 
 function lum = luminance(image1)
 
-image1_double = double(image1);
-[M N] = size(image1_double);
+%image1 = double(image1);
 
-lum = mean2(image1_double(1:M, 1:N));
+hsv = rgb2hsv(image1);
+
+v = hsv(:,:,3);
+
+lum = mean2(v)*255;

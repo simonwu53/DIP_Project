@@ -2,18 +2,14 @@
 
 function SNR = signal_to_noise_ratio(image1, image2)
 
-image1_t = double(image1);
-image2_t = double(image2);
+image1_t = double(image1); % original
+image2_t = double(image2); % assessed
 
-[M N] = size(image1_t);
-[K L] = size(image2_t);
+Avg = mean2(image1_t);
 
-Avg1 = mean2(image1_t(1:M, 1:N));
-Avg2 = mean2(image2_t(1:K, 1:L));
+Ps = sum(sum((image1_t-Avg).^2)); % signal power
+Pn = sum(sum((image1_t-image2_t).^2)); % noise power
 
-RMS1 = sqrt(Avg1);
-RMS2 = sqrt(Avg2);
-
-SNR = RMS1/RMS2;
+SNR = 10*log10(Ps/Pn);
 
 

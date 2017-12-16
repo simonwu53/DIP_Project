@@ -40,7 +40,7 @@ Digital Image Processing Course Project
 * MS-SNR
     - any meaning?
 * Entropy
-    - 
+    - Entropy is defined as `sum(p.*log2(p))` where p contains the histogram counts returned from IMHIST.
 
 * Normalized Cross-Correlation
 * Average Difference
