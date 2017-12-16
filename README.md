@@ -3,15 +3,6 @@ Digital Image Processing Course Project
 
 -----
 
-### Kadir
-* ~~Compression ratio~~
-* ~~Relative data redundancy (1-1/Cr)~~
-* ~~Signal to Noise Ratio (SNR)~~
-* ~~Mean-Square Signal to Noise Ratio (MS-SNR)~~
-* ~~Entropy~~
-* ~~histogram, sharpness, luminance~~
-* ~~niqe, BRISQUE(add ui to display these)~~
-
 ### How to use
 * ImageAssessment.fig -> UI file
 * ImageAssessment.m   -> UI functions
@@ -23,7 +14,7 @@ Digital Image Processing Course Project
     - face detection
 
 ### References
-> quick review of the functions, what it processes and how to understand result. add later  
+> quick review of the functions.  
 > cite: [sharpness metric](http://www.mi.parisdescartes.fr/~moisan/papers/2011-33.pdf)
 
 * Mean Squared Error(MSE)
