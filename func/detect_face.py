@@ -33,7 +33,7 @@ faces = faceCascade.detectMultiScale(
 for (x, y, w, h) in faces:
     
     face = cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
-    cv2.imwrite("src\image_fd.jpg", face)
+    cv2.imwrite("src/image_fd.jpg", face)
     if id:
         key = 1
     else:

@@ -13,6 +13,8 @@ Digital Image Processing Course Project
     - assess image
     - face detection
 
+[![UI](src/UI.png)](src/UI.png)
+
 ### References
 > quick review of the functions.  
 > cite: [sharpness metric](http://www.mi.parisdescartes.fr/~moisan/papers/2011-33.pdf)

@@ -22,7 +22,7 @@ function varargout = ImageAssessment(varargin)
 
 % Edit the above text to modify the response to help ImageAssessment
 
-% Last Modified by GUIDE v2.5 16-Dec-2017 16:10:20
+% Last Modified by GUIDE v2.5 17-Dec-2017 17:39:01
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -52,10 +52,16 @@ function ImageAssessment_OpeningFcn(hObject, eventdata, handles, varargin)
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to ImageAssessment (see VARARGIN)
 
+% set path for Shan
+addpath('/Users/simonwu/Documents/MATLAB/DIP_Project/func');
+path1 = getenv('PATH');
+path1 = [path1 ':/Library/Frameworks/Python.framework/Versions/3.6/bin'];
+setenv('PATH', path1);
 % Choose default command line output for ImageAssessment
 handles.output = hObject;
 % add global arguments
 handles.counter = 1;
+handles.tdata = {};
 set(handles.pushbutton4,'Enable','off')
 
 % Update handles structure
@@ -177,95 +183,94 @@ if isempty(originimg) == 0
         return;
     end
     
-    tdata = {}; % table data for all assessment results
     % do calculation
     % Compression ratio
-    %[originfile, originpath]
     CR = compression_ratio([originpath,originfile], [assesspath, assessfile]);
-    tdata{1,1} = 'Compression Ratio';
-    tdata{1,2} = CR;
+    handles.tdata{1,1} = 'Compression Ratio';
+    handles.tdata{1,2} = CR;
     % Relative data redundancy  1-1/Cr
     RDR = relative_data_redundancy([originpath,originfile], [assesspath, assessfile]);
-    tdata{2,1} = 'Relative Data Redundancy';
-    tdata{2,2} = RDR;
+    handles.tdata{2,1} = 'Relative Data Redundancy';
+    handles.tdata{2,2} = RDR;
     % Mean Square Error(MSE)
     MSE = MeanSquareError(g_originimg, g_assessimg);
-    tdata{3,1} = 'Mean Square Error';
-    tdata{3,2} = MSE;
+    handles.tdata{3,1} = 'Mean Square Error';
+    handles.tdata{3,2} = MSE;
     % Root Mean Square Error (RMSE)
     RMSE = MSE^0.5;
-    tdata{4,1} = 'Root Mean Square Error';
-    tdata{4,2} = RMSE;
+    handles.tdata{4,1} = 'Root Mean Square Error';
+    handles.tdata{4,2} = RMSE;
     % Signal to Noise Ratio (SNR)
     SNR = signal_to_noise_ratio(g_originimg, g_assessimg);
-    tdata{5,1} = 'Signal to noise ratio';
-    tdata{5,2} = SNR;
+    handles.tdata{5,1} = 'Signal to noise ratio';
+    handles.tdata{5,2} = SNR;
     % Peak Signal to Noise Ratio (PSNR)
     PSNR = PeakSignaltoNoiseRatio(g_originimg, g_assessimg);
-    tdata{6,1} = 'Peak Signal to Noise Ratio';
-    tdata{6,2} = PSNR;
+    handles.tdata{6,1} = 'Peak Signal to Noise Ratio';
+    handles.tdata{6,2} = PSNR;
     % Mean-Square Signal to Noise Ratio (MS-SNR)
     MS_SNR = ms_snr(g_originimg, g_assessimg);
-    tdata{7,1} = 'Mean Square Signal to Noise Ratio';
-    tdata{7,2} = MS_SNR;
+    handles.tdata{7,1} = 'Mean Square Signal to Noise Ratio';
+    handles.tdata{7,2} = MS_SNR;
     % Entropy
     en = entropy(g_assessimg);
-    tdata{8,1} = 'Entropy';
-    tdata{8,2} = en;
+    handles.tdata{8,1} = 'Entropy';
+    handles.tdata{8,2} = en;
     % Normalized Cross-Correlation
     NCC = NormalizedCrossCorrelation(g_originimg, g_assessimg);
-    tdata{9,1} = 'Normalized Cross-Correlation';
-    tdata{9,2} = NCC;
+    handles.tdata{9,1} = 'Normalized Cross-Correlation';
+    handles.tdata{9,2} = NCC;
     % Average Difference
     AD = AverageDifference(g_originimg, g_assessimg);
-    tdata{10,1} = 'Average Difference';
-    tdata{10,2} = AD;
+    handles.tdata{10,1} = 'Average Difference';
+    handles.tdata{10,2} = AD;
     % Structural Content
     SC = StructuralContent(g_originimg, g_assessimg);
-    tdata{11,1} = 'Structural Content';
-    tdata{11,2} = SC;
+    handles.tdata{11,1} = 'Structural Content';
+    handles.tdata{11,2} = SC;
     % Maximum Difference
     MD = MaximumDifference(g_originimg, g_assessimg);
-    tdata{12,1} = 'Maximum Difference';
-    tdata{12,2} = MD;
+    handles.tdata{12,1} = 'Maximum Difference';
+    handles.tdata{12,2} = MD;
     % Normalized Absolute Error
     NAE = NormalizedAbsoluteError(g_originimg, g_assessimg);
-    tdata{13,1} = 'Normalized Absolute Error';
-    tdata{13,2} = NAE;
+    handles.tdata{13,1} = 'Normalized Absolute Error';
+    handles.tdata{13,2} = NAE;
     %Laplacian Mean Square Error
     LMSE = LaplacianMeanSquareError(g_originimg, g_assessimg);
-    tdata{14,1} = 'Laplacian Mean Square Error';
-    tdata{14,2} = LMSE;
+    handles.tdata{14,1} = 'Laplacian Mean Square Error';
+    handles.tdata{14,2} = LMSE;
     % Structural Similarity Index (SSIM)
     [ssimval, ssimmap] = ssim(g_assessimg,g_originimg);
-    tdata{15,1} = 'Structural Similarity Index';
-    tdata{15,2} = ssimval;
+    handles.tdata{15,1} = 'Structural Similarity Index';
+    handles.tdata{15,2} = ssimval;
     % Luminance
     lum = luminance(assessimg);
-    tdata{16,1} = 'Luminance';
-    tdata{16,2} = lum;
+    handles.tdata{16,1} = 'Luminance';
+    handles.tdata{16,2} = lum;
     % Variance
     var = variance(g_assessimg);
-    tdata{17,1} = 'Contrast';
-    tdata{17,2} = var;
+    handles.tdata{17,1} = 'Contrast';
+    handles.tdata{17,2} = var;
     % Sharpness Index
     si = sharpness_index(g_assessimg,3);
-    tdata{18,1} = 'Sharpness Index';
-    tdata{18,2} = si;
+    handles.tdata{18,1} = 'Sharpness Index';
+    handles.tdata{18,2} = si;
     % NIQE
     nq = niqe(g_assessimg);
-    tdata{19,1} = 'NIQE';
-    tdata{19,2} = nq;
+    handles.tdata{19,1} = 'NIQE';
+    handles.tdata{19,2} = nq;
     % BRISQUE
     brq = brisque(g_assessimg);
-    tdata{20,1} = 'BRISQUE';
-    tdata{20,2} = brq;
+    handles.tdata{20,1} = 'BRISQUE';
+    handles.tdata{20,2} = brq;
     % Show result
-    set(handles.uitable1,'Data',tdata);
+    set(handles.uitable1,'Data',handles.tdata);
     set(handles.uitable1,'Visible','on');
 else
     % show blank table
     msgbox('You didn''t choose reference file!','Error Occurred','error');
+    return
 end
 % do comments
 % overall quality
@@ -316,6 +321,8 @@ elseif PSNR >= 37
 end
 set(handles.text6,'String',comments);
 set(handles.text6,'Visible','on');
+% make tdata global
+guidata(hObject, handles);
 
 
 % --- Executes on button press in pushbutton5.
@@ -329,7 +336,7 @@ global assessfile
 global assesspath
 
 %run python face detection code
-command = strcat('python func\detect_face.py',{' '},originpath,originfile);
+command = strcat('python3 func/detect_face.py',{' '},originpath,originfile);
 [foo number_of_faces_origin] = system(command{1});
 %display image with face detection
 axes(handles.axes2)
@@ -337,9 +344,51 @@ image_fd = imread('src/image_fd.jpg');
 imshow(image_fd)
 
 %run python face detection code
-command = strcat('python func\detect_face.py',{' '},assesspath,assessfile);
+command = strcat('python3 func/detect_face.py',{' '},assesspath,assessfile);
 [foo number_of_faces_assess] = system(command{1});
 %display image with face detection
 axes(handles.axes1)
 image_fd = imread('src/image_fd.jpg');
 imshow(image_fd)
+% get table data
+handles.tdata{21,1} = 'Number of Faces';
+handles.tdata{21,2} = str2double(number_of_faces_origin);
+set(handles.uitable1,'Data',handles.tdata);
+guidata(hObject, handles);
+
+
+% --- Executes on button press in pushbutton6.
+function pushbutton6_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global assessimg
+if rem(handles.counter,2) == 1
+    % calculate hist
+    Red = assessimg(:,:,1);
+    [yRed, x] = imhist(Red);
+    Green = assessimg(:,:,2);
+    [yGreen, y] = imhist(Green);
+    Blue = assessimg(:,:,3);
+    [yBlue, z] = imhist(Blue);
+    % plot hist
+    axes(handles.axes3)
+    cla(handles.axes3)
+    set(handles.uipanel3,'Visible','on')
+    set(handles.uipanel2,'Visible','off')
+    set(handles.pushbutton6, 'String', 'Hide hist')
+    plot(x,yRed,'r')
+    hold on
+    plot(y,yGreen,'g')
+    plot(z,yBlue,'b')
+    legend('Red', 'Green', 'Blue')
+    set(handles.axes3,'XTick',ceil(linspace(0,255,20)))
+    set(handles.axes3,'XTickLabelRotation',45)
+    handles.counter = handles.counter + 1;
+elseif rem(handles.counter,2) == 0
+    set(handles.uipanel3,'Visible','off')
+    set(handles.uipanel2,'Visible','on')
+    set(handles.pushbutton6, 'String', 'Histogram')
+    handles.counter = handles.counter + 1;
+end
+guidata(hObject, handles);
