@@ -78,12 +78,10 @@ means that image is poor quality
 * Brisque
     - calculates the no-reference image quality score for image A using the Blind/Referenceless Image Spatial Quality Evaluator (BRISQUE).
     - A smaller score indicates better perceptual quality.
-
-[![Reference](src/Reference.PNG)](src/Reference.PNG)
-
 * Structural Similarity Index (SSIM)
     - Computation of three terms: luminance, contrast, structural
     - The overall index is a multiplicative combination of the three terms
 
 [![SSIM](src/SSIM.png)](src/SSIM.png)
 
+[![Reference](src/Reference.PNG)](src/Reference.PNG)
