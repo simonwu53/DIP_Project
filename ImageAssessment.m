@@ -90,7 +90,7 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 global assessimg
 global assessfile
 global assesspath
-[assessfile, assesspath] = uigetfile({'*.jpg;*.tif;*.png;*.gif;*.bmp','All Image Files'});
+[assessfile, assesspath] = uigetfile({'*.jpg;*.tif;*.png;*.gif;*.bmp;*.jpeg','All Image Files'});
 if (assessfile==0 & assesspath==0)
     msgbox('You didn''t choose any file!','Opening File Error','error');
 else
@@ -113,7 +113,7 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 global originimg
 global originfile
 global originpath
-[originfile, originpath] = uigetfile({'*.jpg;*.tif;*.png;*.gif;*.bmp','All Image Files'});
+[originfile, originpath] = uigetfile({'*.jpg;*.tif;*.png;*.gif;*.bmp;*.jpeg','All Image Files'});
 if (originfile==0 & originpath==0)
     %msgbox('您没有选择文件，请�?新选择!','打开文件出错 COME ON MAN USE ENGLISH!!!! :D','error');
     msgbox('You didn''t choose any file!','Opening File Error','error');
