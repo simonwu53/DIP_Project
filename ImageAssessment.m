@@ -22,7 +22,7 @@ function varargout = ImageAssessment(varargin)
 
 % Edit the above text to modify the response to help ImageAssessment
 
-% Last Modified by GUIDE v2.5 17-Dec-2017 17:39:01
+% Last Modified by GUIDE v2.5 20-Dec-2017 14:22:10
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -338,21 +338,24 @@ global assesspath
 %run python face detection code
 command = strcat('python3 func/detect_face.py',{' '},originpath,originfile);
 [foo number_of_faces_origin] = system(command{1});
-%display image with face detection
-axes(handles.axes2)
-image_fd = imread('src/image_fd.jpg');
-imshow(image_fd)
-
+if number_of_faces_origin ~= '0'
+    %display image with face detection
+    axes(handles.axes2)
+    image_fd = imread('src/image_fd.jpg');
+    imshow(image_fd)
+end
 %run python face detection code
 command = strcat('python3 func/detect_face.py',{' '},assesspath,assessfile);
 [foo number_of_faces_assess] = system(command{1});
-%display image with face detection
-axes(handles.axes1)
-image_fd = imread('src/image_fd.jpg');
-imshow(image_fd)
+if number_of_faces_assess ~= '0'
+    %display image with face detection
+    axes(handles.axes1)
+    image_fd = imread('src/image_fd.jpg');
+    imshow(image_fd)
+end
 % get table data
 handles.tdata{21,1} = 'Number of Faces';
-handles.tdata{21,2} = str2double(number_of_faces_origin);
+handles.tdata{21,2} = str2double(number_of_faces_assess);
 set(handles.uitable1,'Data',handles.tdata);
 guidata(hObject, handles);
 
@@ -388,7 +391,44 @@ if rem(handles.counter,2) == 1
 elseif rem(handles.counter,2) == 0
     set(handles.uipanel3,'Visible','off')
     set(handles.uipanel2,'Visible','on')
-    set(handles.pushbutton6, 'String', 'Histogram')
+    set(handles.pushbutton6, 'String', 'Assessed Histogram')
+    handles.counter = handles.counter + 1;
+end
+guidata(hObject, handles);
+
+
+% --- Executes on button press in pushbutton7.
+function pushbutton7_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton7 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global originimg
+if rem(handles.counter,2) == 1
+    % calculate hist
+    Red = originimg(:,:,1);
+    [yRed, x] = imhist(Red);
+    Green = originimg(:,:,2);
+    [yGreen, y] = imhist(Green);
+    Blue = originimg(:,:,3);
+    [yBlue, z] = imhist(Blue);
+    % plot hist
+    axes(handles.axes3)
+    cla(handles.axes3)
+    set(handles.uipanel3,'Visible','on')
+    set(handles.uipanel2,'Visible','off')
+    set(handles.pushbutton7, 'String', 'Hide hist')
+    plot(x,yRed,'r')
+    hold on
+    plot(y,yGreen,'g')
+    plot(z,yBlue,'b')
+    legend('Red', 'Green', 'Blue')
+    set(handles.axes3,'XTick',ceil(linspace(0,255,20)))
+    set(handles.axes3,'XTickLabelRotation',45)
+    handles.counter = handles.counter + 1;
+elseif rem(handles.counter,2) == 0
+    set(handles.uipanel3,'Visible','off')
+    set(handles.uipanel2,'Visible','on')
+    set(handles.pushbutton7, 'String', 'Original Histogram')
     handles.counter = handles.counter + 1;
 end
 guidata(hObject, handles);
