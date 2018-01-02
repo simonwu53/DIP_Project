@@ -51,8 +51,7 @@ Digital Image Processing Course Project
     - The large value of Structural Content (SC) means that image is poor quality.
 * Maximum Difference
     - max value of error in pic
-    - The large value of Maximum Difference (MD)
-means that image is poor quality
+    - The large value of Maximum Difference (MD) means that image is poor quality
 * Laplacian Mean Square Error
     - This measure is based on the importance of edges measurement
     - The large value of Laplacian Mean Square Error (LMSE) means that image is poor quality. 

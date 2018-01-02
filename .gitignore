@@ -8,3 +8,4 @@ plan.md
 *.m~
 func/dequant.m
 func/perdecomp.m
+src/image_fd.jpg
