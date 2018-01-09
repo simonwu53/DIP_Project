@@ -6,7 +6,7 @@ function cg = variance(image1)
 %Var1 = var(image1_temp(:));
 
 %方法一：中心像素灰度值与周围4近邻像素灰度值之差的平方之和，除以以上平方项的个数。
-%method1: calc the squared sum of ceter pixel value and four neighbor 
+%method1: calc the squared sum of center pixel value and four neighbor 
 %         values, then divide by the number of squared terms
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % function cg = duibidu4(image1) %f为输入图像，cg为输出的对比度数值，是英文contrast gradient的首字母组合
